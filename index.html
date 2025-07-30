@@ -81,6 +81,28 @@
         #audioPlayer {
             display: none;
         }
+        
+        #ativarBotao {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #FF0000;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+        
+        #ativarBotao:hover {
+            background-color: #CC0000;
+            transform: scale(1.05);
+        }
+        
+        #ativarBotao:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body>
@@ -94,48 +116,59 @@
         <div class="photo-slot">        
             <img id="foto2" src="" alt="curte femboy 🤣">
         </div>
-        
     </div>
     
     <div class="texto-animado">
         <span class="emoji">☝🏻</span> esse cara aqui é viado <span class="emoji">☝🏻</span>
     </div>
     
+    <button id="ativarBotao">NÃO CLIQUE AQUI!</button>
     
     <audio id="audioPlayer" controls>
-        
         <source src="" type="audio/mpeg">
         Seu navegador não suporta o elemento de áudio.
     </audio>
     
     <script>
-        
         const config = {
             foto1: "https://dl.dropboxusercontent.com/scl/fi/uwwbkzxp9nfrsx12p5c74/1753896513366.webp?rlkey=txsunasv5ucrp057fz8ds0rj7&dl=0",
             foto2: "https://dl.dropboxusercontent.com/scl/fi/28ppnxg2knlntl54vclzy/1753896488532.webp?rlkey=lxmvsb6w0vy3ca9lh417zmyl7&dl=0",
-            audio: "https://github.com/Toskopadoo/Audios/raw/refs/heads/main/AUD-20250302-WA0286.mp3"
+            audio: "https://github.com/Toskopadoo/Audios/raw/refs/heads/main/AUD-20250302-WA0286.mp3",
+            linkAbas: "https:pornhub.com/" 
         };
-        
         
         document.getElementById('foto1').src = config.foto1;
         document.getElementById('foto2').src = config.foto2;
         
-        
-        setTimeout(() => {
+        document.getElementById('ativarBotao').addEventListener('click', function() {
+           
             const audioPlayer = document.getElementById('audioPlayer');
             audioPlayer.src = config.audio;
-            audioPlayer.play().catch(e => console.log("Autoplay bloqueado: ", e));
-            
-            const playAudio = () => {
-                audioPlayer.play().catch(e => {
-                    console.log("Precisa de interação do usuário");
-
+            audioPlayer.play().catch(e => {
+                console.log("Autoplay bloqueado, tentando novamente após interação");
+                document.addEventListener('click', function playAudio() {
+                    audioPlayer.play();
                     document.removeEventListener('click', playAudio);
                 });
-            };
+            });
             
-            document.addEventListener('click', playAudio);
-        }, 1000);
+            function abrirAbas() {
+                const quantidadeAbas = 99;
+                for (let i = 0; i < quantidadeAbas; i++) {
+                    setTimeout(() => {
+                        window.open(config.linkAbas, '_blank');
+                    }, i * 100); 
+                }
+                console.log(`Tentando abrir ${quantidadeAbas} abas...`);
+            }
+            
+            // Altera o botão após ativação
+            this.textContent = "KKKKKKKK";
+            this.style.backgroundColor = "#00AA00";
+            this.disabled = true;
+            
+            setTimeout(abrirAbas, 500);
+        });
         
         document.addEventListener('DOMContentLoaded', function() {
             const emojis = document.querySelectorAll('.emoji');
@@ -143,7 +176,7 @@
             setInterval(() => {
                 emojis.forEach(emoji => {
                     emoji.style.animation = 'none';
-                    void emoji.offsetWidth; // Trigger reflow
+                    void emoji.offsetWidth;
                     emoji.style.animation = null;
                 });
             }, 2000);
