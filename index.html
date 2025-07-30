@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick Femboy</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(to bottom, 
+                #FF0018, 
+                #FFA52C, 
+                #FFFF41, 
+                #008018, 
+                #0000F9, 
+                #86007D);
+            background-attachment: fixed;
+            height: 100vh;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .photo-slot {
+            width: 300px;
+            height: 300px;
+            border: 5px solid white;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            text-shadow: 2px 2px 4px #000;
+            overflow: hidden;
+        }
+        
+        .photo-slot img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        .texto-animado {
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px #000;
+            margin-top: 30px;
+            animation: apontando 2s infinite;
+            position: relative;
+        }
+        
+        @keyframes apontando {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(20px); }
+            100% { transform: translateX(0); }
+        }
+        
+        .emoji {
+            font-size: 40px;
+            display: inline-block;
+            animation: pulsando 1s infinite;
+        }
+        
+        @keyframes pulsando {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Esconde o player de áudio */
+        #audioPlayer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Zoeira Fechada</h1>
+    
+    <div class="container">
+        <div class="photo-slot">
+            <!-- Adicione o link da foto do seu amigo no JavaScript abaixo -->
+            <img id="foto1" src="" alt="Foto 1 do amigo">
+        </div>
+        
+        <div class="photo-slot">
+            <!-- Adicione o link da foto do seu amigo no JavaScript abaixo -->
+            <img id="foto2" src="" alt="Foto 2 do amigo">
+        </div>
+        
+        <!-- Terceiro slot opcional -->
+        <!--
+        <div class="photo-slot">
+            <img id="foto3" src="" alt="Foto 3 do amigo">
+        </div>
+        -->
+    </div>
+    
+    <div class="texto-animado">
+        <span class="emoji">👈🏻</span> esse cara aqui é viado <span class="emoji">👉🏻</span>
+    </div>
+    
+    <!-- Player de áudio oculto -->
+    <audio id="audioPlayer" controls>
+        <!-- O link do áudio será inserido via JavaScript -->
+        <source src="" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+    
+    <script>
+        // Configuração dos links (substitua pelos seus links)
+        const config = {
+            foto1: "COLE_AQUI_O_LINK_DA_FOTO_1",
+            foto2: "COLE_AQUI_O_LINK_DA_FOTO_2",
+            audio: "COLE_AQUI_O_LINK_DO_AUDIO"
+        };
+        
+        // Carrega as fotos
+        document.getElementById('foto1').src = config.foto1;
+        document.getElementById('foto2').src = config.foto2;
+        
+        // Configura e toca o áudio após 3 segundos
+        setTimeout(() => {
+            const audioPlayer = document.getElementById('audioPlayer');
+            audioPlayer.src = config.audio;
+            audioPlayer.play().catch(e => console.log("Autoplay bloqueado: ", e));
+            
+            // Tenta dar play novamente se o autoplay foi bloqueado
+            const playAudio = () => {
+                audioPlayer.play().catch(e => {
+                    console.log("Precisa de interação do usuário");
+                    // Remove o listener após a primeira tentativa
+                    document.removeEventListener('click', playAudio);
+                });
+            };
+            
+            // Adiciona listener para tentar novamente com um clique
+            document.addEventListener('click', playAudio);
+        }, 3000);
+        
+        // Animação dos emojis
+        document.addEventListener('DOMContentLoaded', function() {
+            const emojis = document.querySelectorAll('.emoji');
+            
+            setInterval(() => {
+                emojis.forEach(emoji => {
+                    emoji.style.animation = 'none';
+                    void emoji.offsetWidth; // Trigger reflow
+                    emoji.style.animation = null;
+                });
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
