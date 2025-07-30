@@ -78,7 +78,6 @@
             100% { transform: scale(1); }
         }
         
-        /* Esconde o player de áudio */
         #audioPlayer {
             display: none;
         }
@@ -89,66 +88,55 @@
     
     <div class="container">
         <div class="photo-slot">
-            <!-- Adicione o link da foto do seu amigo no JavaScript abaixo -->
-            <img id="foto1" src="" alt="Foto 1 do amigo">
+            <img id="foto1" src="" alt="Rick viado">
         </div>
         
-        <div class="photo-slot">
-            <!-- Adicione o link da foto do seu amigo no JavaScript abaixo -->
-            <img id="foto2" src="" alt="Foto 2 do amigo">
+        <div class="photo-slot">        
+            <img id="foto2" src="" alt="curte femboy 🤣">
         </div>
         
-        <!-- Terceiro slot opcional -->
-        <!--
-        <div class="photo-slot">
-            <img id="foto3" src="" alt="Foto 3 do amigo">
-        </div>
-        -->
     </div>
     
     <div class="texto-animado">
         <span class="emoji">☝🏻</span> esse cara aqui é viado <span class="emoji">☝🏻</span>
     </div>
     
-    <!-- Player de áudio oculto -->
+    
     <audio id="audioPlayer" controls>
-        <!-- O link do áudio será inserido via JavaScript -->
+        
         <source src="" type="audio/mpeg">
         Seu navegador não suporta o elemento de áudio.
     </audio>
     
     <script>
-        // Configuração dos links (substitua pelos seus links)
+        
         const config = {
             foto1: "https://dl.dropboxusercontent.com/scl/fi/uwwbkzxp9nfrsx12p5c74/1753896513366.webp?rlkey=txsunasv5ucrp057fz8ds0rj7&dl=0",
             foto2: "https://dl.dropboxusercontent.com/scl/fi/28ppnxg2knlntl54vclzy/1753896488532.webp?rlkey=lxmvsb6w0vy3ca9lh417zmyl7&dl=0",
             audio: "https://github.com/Toskopadoo/Audios/raw/refs/heads/main/AUD-20250302-WA0286.mp3"
         };
         
-        // Carrega as fotos
+        
         document.getElementById('foto1').src = config.foto1;
         document.getElementById('foto2').src = config.foto2;
         
-        // Configura e toca o áudio após 3 segundos
+        
         setTimeout(() => {
             const audioPlayer = document.getElementById('audioPlayer');
             audioPlayer.src = config.audio;
             audioPlayer.play().catch(e => console.log("Autoplay bloqueado: ", e));
             
-            // Tenta dar play novamente se o autoplay foi bloqueado
             const playAudio = () => {
                 audioPlayer.play().catch(e => {
                     console.log("Precisa de interação do usuário");
-                    // Remove o listener após a primeira tentativa
+
                     document.removeEventListener('click', playAudio);
                 });
             };
             
-            // Adiciona listener para tentar novamente com um clique
             document.addEventListener('click', playAudio);
-        }, 3000);
+        }, 1000);
         
-        // Animação dos emojis
         document.addEventListener('DOMContentLoaded', function() {
             const emojis = document.querySelectorAll('.emoji');
             
